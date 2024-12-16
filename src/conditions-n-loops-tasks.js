@@ -21,12 +21,12 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number % 2 === 0;
 }
 
 /**
- * Returns the maximum of three numbers without using Array and Math classes methods.
+ * Возвращает максимум три числа без использования методов классов Array и Math.
  *
  * @param {number} a - The first number.
  * @param {number} b - The second number.
@@ -38,12 +38,18 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b && a > c) {
+    return a;
+  }
+  if (b > c) {
+    return b;
+  }
+  return c;
 }
 
 /**
- * Checks if a queen can capture a king in the next move on an 8x8 chessboard.
+ * Проверяет, может ли ферзь следующим ходом взять короля на шахматной доске 8х8.
  * See more details at https://en.wikipedia.org/wiki/Queen_(chess)
  *
  * @typedef {{
@@ -60,8 +66,16 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x || queen.y === king.y) {
+    return true;
+  }
+
+  if (Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -82,10 +96,17 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
-}
+function isIsoscelesTriangle(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return false;
+  }
 
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return false;
+  }
+
+  return a === b || a === c || b === c;
+}
 /**
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -100,8 +121,25 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const romanNumerals = {
+    10: 'X',
+    9: 'IX',
+    5: 'V',
+    4: 'IV',
+    1: 'I',
+  };
+
+  const arrNum = [1, 4, 5, 9, 10];
+  let newNum = num;
+  let res = '';
+  for (let el = arrNum.length - 1; el >= 0; el -= 1) {
+    while (newNum - arrNum[el] >= 0) {
+      res += romanNumerals[arrNum[el]];
+      newNum -= arrNum[el];
+    }
+  }
+  return res;
 }
 
 /**
@@ -119,8 +157,55 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let res = '';
+  for (let i = 0; i <= numberStr.length - 1; i += 1) {
+    switch (numberStr[i]) {
+      case '-':
+        res += 'minus';
+        break;
+      case '.':
+      case ',':
+        res += 'point';
+        break;
+      case '0':
+        res += 'zero';
+        break;
+      case '1':
+        res += 'one';
+        break;
+      case '2':
+        res += 'two';
+        break;
+      case '3':
+        res += 'three';
+        break;
+      case '4':
+        res += 'four';
+        break;
+      case '5':
+        res += 'five';
+        break;
+      case '6':
+        res += 'six';
+        break;
+      case '7':
+        res += 'seven';
+        break;
+      case '8':
+        res += 'eight';
+        break;
+      case '9':
+        res += 'nine';
+        break;
+      default:
+        break;
+    }
+    if (i < numberStr.length - 1) {
+      res += ' ';
+    }
+  }
+  return res;
 }
 
 /**
@@ -135,8 +220,14 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let flag = true;
+  for (let i = 0; i <= str.length - 1; i += 1) {
+    if (str[i] !== str[str.length - 1 - i]) {
+      flag = false;
+    }
+  }
+  return flag;
 }
 
 /**
@@ -153,8 +244,15 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let counter = 0;
+  for (let i = 0; i <= str.length - 1; i += 1) {
+    if (str[i] === letter) {
+      return counter;
+    }
+    counter += 1;
+  }
+  return -1;
 }
 
 /**
@@ -172,8 +270,15 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const numStr = String(num);
+  const digitSrt = String(digit);
+  for (let i = 0; i <= numStr.length - 1; i += 1) {
+    if (numStr[i] === digitSrt) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -238,18 +343,18 @@ function rotateMatrix(/* matrix */) {
 }
 
 /**
- * Sorts an array of numbers in ascending order in place.
- * Employ any sorting algorithm of your choice.
- * Take into account that the array can be very large. Consider how you can optimize your solution.
- * In this task, the use of methods of the Array and String classes is not allowed.
+ * Сортирует массив чисел по возрастанию на месте.
+ * Используйте любой алгоритм сортировки по вашему выбору.
+ * Учтите, что массив может быть очень большим. Подумайте, как вы можете оптимизировать свое решение.
+ * В этой задаче не допускается использование методов классов Array и String.
  *
- * @param {number[]} arr - The array to sort.
- * @return {number[]} The sorted array.
+ * @param {number[]} arr -Массив для сортировки.
+ * @return {number[]} Сортированный массив.
  *
  * @example:
- *  [2, 9, 5]       => [2, 5, 9]
- *  [2, 9, 5, 9]    => [2, 5, 9, 9]
- *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
+ *  [2, 9, 5] => [2, 5, 9]
+ *  [2, 9, 5, 9] => [2, 5, 9, 9]
+ *  [-2, 9, 5, -3] => [-3, -2, 5, 9]
  */
 function sortByAsc(/* arr */) {
   throw new Error('Not implemented');
